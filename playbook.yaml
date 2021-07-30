@@ -34,7 +34,7 @@
       accept_hostkey: yes
       force: yes
       recursive: no
-      version: main
+      version: master
   
   
   - name: Install Skaffold
