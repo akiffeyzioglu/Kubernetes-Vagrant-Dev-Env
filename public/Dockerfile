@@ -11,6 +11,6 @@ RUN apk update \
 
 COPY . /app/
 
-RUN pip install -r requirements.txt
+RUN pip install --user -r requirements.txt
 
 ENTRYPOINT [ "sh", "start.sh" ]

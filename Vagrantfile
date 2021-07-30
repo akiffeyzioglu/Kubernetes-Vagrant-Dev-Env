@@ -1,20 +1,16 @@
+VAGRANT_IP = "15.15.15.4"
+
 Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu/focal64"
   config.vm.provision "docker"
-
-  config.vm.network "forwarded_port",
-      guest: 3000,
-      host: 3000,
-      auto_correct: true
+  config.vm.network :private_network, ip: VAGRANT_IP
   
-  config.vm.synced_folder "public/", "/vagrant/public"
-
-  config.vm.provision "ansible" do |ansible|
-    ansible.limit = "all"
+  config.vm.provision "ansible_local" do |ansible|
+    ansible.install = true
     ansible.playbook = "playbook.yaml"
 
   config.vm.provider "virtualbox" do |vm|
-    vm.memory = "4096"
+    vm.memory = "2048"
     vm.cpus = 4
   end
   end

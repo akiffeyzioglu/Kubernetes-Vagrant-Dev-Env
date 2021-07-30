@@ -30,7 +30,7 @@
   - name: Git clone repo
     git:
       repo: "https://github.com/akiffeyzioglu/Kubernetes-Vagrant-Dev-Env"
-      dest: "/home/vagrant/Kubernetes-Vagrant-Dev-Env.git"
+      dest: "/home/vagrant/kubernetes"
       accept_hostkey: yes
       force: yes
       recursive: no
@@ -53,3 +53,9 @@
   - name: Install kubectl
     shell: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
       install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+  
+  - name: Into the kubernetes directory
+    shell: cd "/home/vagrant/kubernetes"
+  
+  - name: Start Skaffold
+    shell: skaffold dev
