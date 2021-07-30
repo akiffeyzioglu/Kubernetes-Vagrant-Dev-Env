@@ -1,0 +1,15 @@
+apiVersion: skaffold/v2beta19
+kind: Config
+metadata:
+  name: kubernetes-challenge
+build:
+  artifacts:
+  - image: flask-app
+    context: public
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  kubectl:
+    manifests:
+    - kubernetes/flask-deployment.yaml
+    - kubernetes/mysql-deployment.yaml

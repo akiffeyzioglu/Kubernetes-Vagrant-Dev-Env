@@ -1,0 +1,55 @@
+---
+- name: vagrant-dev-env
+  hosts: default
+  become: yes
+  tasks:
+  - name: Install curl
+    apt:
+      name: curl
+  - name: Install Git
+    apt:
+      name: git
+      state: present
+      update_cache: yes
+  - name: Install vim
+    apt:
+      name: vim
+      state: present
+      update_cache: yes
+  - name: Install Python
+    apt:
+      name: python3.8
+      state: present
+      update_cache: yes
+  - name: Install Pip
+    apt:
+      name: python3-pip
+      state: present
+      update_cache: yes
+
+  - name: Git clone repo
+    git:
+      repo: "https://github.com/akiffeyzioglu/Kubernetes-Vagrant-Dev-Env"
+      dest: "/home/vagrant/Kubernetes-Vagrant-Dev-Env.git"
+      accept_hostkey: yes
+      force: yes
+      recursive: no
+      version: main
+  
+  
+  - name: Install Skaffold
+    shell: curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && \
+      install skaffold /usr/local/bin/
+
+
+  - name: Install Minikube
+    shell: curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && \
+      install minikube-linux-amd64 /usr/local/bin/minikube
+    
+  - name: Start Minikube
+    become_user: vagrant
+    command: minikube start
+  
+  - name: Install kubectl
+    shell: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
+      install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
