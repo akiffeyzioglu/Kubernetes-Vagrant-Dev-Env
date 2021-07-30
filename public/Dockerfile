@@ -6,7 +6,7 @@ ENV FLASK_APP app.py
 WORKDIR /app
 
 RUN apk update \
-    && apk add --virtual build-deps gcc python3-dev musl-dev virtualenv \
+    && apk add --virtual build-deps gcc python3-dev musl-dev py3-virtualenv \
     && apk add --no-cache mariadb-dev
 
 COPY . /app/
