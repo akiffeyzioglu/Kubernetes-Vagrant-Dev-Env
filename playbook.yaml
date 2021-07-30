@@ -16,17 +16,7 @@
       name: vim
       state: present
       update_cache: yes
-  - name: Install Python
-    apt:
-      name: python3.8
-      state: present
-      update_cache: yes
-  - name: Install Pip
-    apt:
-      name: python3-pip
-      state: present
-      update_cache: yes
-
+      
   - name: Git clone repo
     git:
       repo: "https://github.com/akiffeyzioglu/Kubernetes-Vagrant-Dev-Env"
